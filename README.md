@@ -1,5 +1,7 @@
 # DevOps Portfolio
 
+Repository: `project-practice`
+
 Four independent projects. Put each in its own GitHub repo.
 
 1. `terraform-aws-multi-az` - Terraform: VPC, ALB, Auto Scaling, Multi-AZ RDS
