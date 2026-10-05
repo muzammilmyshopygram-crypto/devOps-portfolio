@@ -1,0 +1,28 @@
+# Overrides for the kube-prometheus-stack Helm chart
+prometheus:
+  prometheusSpec:
+    retention: 7d
+    # Pick up PrometheusRule / ServiceMonitor objects from any namespace
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    resources:
+      requests: { cpu: 200m, memory: 512Mi }
+
+alertmanager:
+  config:
+    route:
+      receiver: "null"
+      group_by: ["alertname", "namespace"]
+      routes:
+        - receiver: "null"   # replace with slack/email receiver
+          matchers: ['severity=~"warning|critical"']
+    receivers:
+      - name: "null"
+
+grafana:
+  # Do not commit a real password: pass it with --set grafana.adminPassword=...
+  defaultDashboardsEnabled: true
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
